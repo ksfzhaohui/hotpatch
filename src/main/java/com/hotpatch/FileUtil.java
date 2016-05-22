@@ -18,6 +18,12 @@ import org.apache.log4j.Logger;
 public class FileUtil {
 	private final static Logger logger = Logger.getLogger(FileUtil.class);
 
+	/**
+	 * 读取指定目录中的所有文件
+	 * 
+	 * @param filepath
+	 * @return
+	 */
 	public static List<File> readfile(String filepath) {
 		List<File> list = new ArrayList<File>();
 		File file = new File(filepath);
