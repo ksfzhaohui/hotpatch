@@ -16,7 +16,6 @@ import org.apache.log4j.Logger;
 public class HotPatchThread implements Runnable {
 
 	private final static Logger logger = Logger.getLogger(HotPatchThread.class);
-	private static final String ROOT_PATH = "hotfiles";
 	private Instrumentation inst;
 
 	public HotPatchThread(Instrumentation inst) {
@@ -25,7 +24,7 @@ public class HotPatchThread implements Runnable {
 
 	public void run() {
 		try {
-			List<File> list = FileUtil.readfile(ROOT_PATH);
+			List<File> list = FileUtil.readfile(HotPatch.ROOT_PATH);
 			if (list != null && list.size() > 0) {
 				for (File file : list) {
 					Class<?> clazz = Class.forName(getPackageName(file));
@@ -50,8 +49,8 @@ public class HotPatchThread implements Runnable {
 	 */
 	private String getPackageName(File file) {
 		String path = file.getPath();
-		int index = path.indexOf(ROOT_PATH);
-		path = path.substring(index + ROOT_PATH.length() + 1);
+		int index = path.indexOf(HotPatch.ROOT_PATH);
+		path = path.substring(index + HotPatch.ROOT_PATH.length() + 1);
 		path = path.split("\\.")[0];
 		path = path.replaceAll("\\\\", ".");
 		return path;
