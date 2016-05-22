@@ -18,6 +18,12 @@ import org.apache.log4j.Logger;
 public class FileUtil {
 	private final static Logger logger = Logger.getLogger(FileUtil.class);
 
+	/**
+	 * 读取指定目录中的所有文件
+	 * 
+	 * @param filepath
+	 * @return
+	 */
 	public static List<File> readfile(String filepath) {
 		List<File> list = new ArrayList<File>();
 		File file = new File(filepath);
@@ -78,11 +84,22 @@ public class FileUtil {
 		}
 	}
 
-	public static void main(String[] args) {
-		List<File> list = readfile("target");
-		for (File file : list) {
-			System.out.println("path=" + file.getPath());
+	/**
+	 * 删除指定目录的所有文件
+	 * 
+	 * @param path
+	 */
+	public static void deleteAllFilesOfDir(File path) {
+		if (!path.exists())
+			return;
+		if (path.isFile()) {
+			path.delete();
+			return;
 		}
-
+		File[] files = path.listFiles();
+		for (int i = 0; i < files.length; i++) {
+			deleteAllFilesOfDir(files[i]);
+		}
+		path.delete();
 	}
 }
