@@ -52,7 +52,7 @@ public class HotPatchThread implements Runnable {
 		int index = path.indexOf(HotPatch.ROOT_PATH);
 		path = path.substring(index + HotPatch.ROOT_PATH.length() + 1);
 		path = path.split("\\.")[0];
-		path = path.replaceAll("\\\\", ".");
+		path = path.replaceAll("\\" + File.separator, ".");
 		return path;
 	}
 }
